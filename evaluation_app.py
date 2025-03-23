@@ -62,90 +62,90 @@ if not df1.empty:
     st.write(f"**Description:** {job_posting['en_description'].values[0]}")
 
     # Button to show metadata fields
-    if st.button("Show Metadata Fields"):
-        st.subheader("Metadata Fields")
-        st.write(f"**Job Title:** {job_posting['job_title'].values[0]}")
-        st.write(f"**Required Skills:** {', '.join(job_posting['required_skills'].values[0])}")
-        st.write(f"**Qualifications:** {', '.join(job_posting['qualifications'].values[0])}")
-        st.write(f"**Industry Category:** {job_posting['industry_category'].values[0]}")
-        st.write(f"**Required Education Level:** {job_posting['required_education_level'].values[0]}")
+    #if st.button("Show Metadata Fields"):
+    st.subheader("Metadata Fields")
+    st.write(f"**Job Title:** {job_posting['job_title'].values[0]}")
+    st.write(f"**Required Skills:** {', '.join(job_posting['required_skills'].values[0])}")
+    st.write(f"**Qualifications:** {', '.join(job_posting['qualifications'].values[0])}")
+    st.write(f"**Industry Category:** {job_posting['industry_category'].values[0]}")
+    st.write(f"**Required Education Level:** {job_posting['required_education_level'].values[0]}")
     
     # Button to show normalized skills (ESCO skills)
-    if st.button("Show Normalized Skills"):
-        # Get foreign_key_id and source for the selected job posting
-        foreign_key_id = job_posting["foreign_key_id"].values[0]
-        source = job_posting["source"].values[0]
+    #if st.button("Show Normalized Skills"):
+    # Get foreign_key_id and source for the selected job posting
+    foreign_key_id = job_posting["foreign_key_id"].values[0]
+    source = job_posting["source"].values[0]
 
-        # Find normalized skills from skills_table
-        normalized_skills = df2[
-            (df2["foreign_key_id"] == foreign_key_id) &
-            (df2["source"] == source)
-        ][["foreign_key_id", "source", "required_skill", "skill_esco"]]
-        normalized_skills["foreign_key_id"] = normalized_skills["foreign_key_id"].astype(str)
-        st.subheader("Normalized Skills (ESCO)")
-        st.dataframe(normalized_skills)  # Display as a table
+    # Find normalized skills from skills_table
+    normalized_skills = df2[
+        (df2["foreign_key_id"] == foreign_key_id) &
+        (df2["source"] == source)
+    ][["foreign_key_id", "source", "required_skill", "skill_esco","is_new_skill"]]
+    normalized_skills["foreign_key_id"] = normalized_skills["foreign_key_id"].astype(str)
+    st.subheader("Normalized Skills (ESCO)")
+    st.dataframe(normalized_skills)  # Display as a table
 
         # Button to show normalized job title (ESCO skills)
-    if st.button("Show Normalized Job Title"):
-        # Get foreign_key_id and source for the selected job posting
-        foreign_key_id = job_posting["foreign_key_id"].values[0]
-        source = job_posting["source"].values[0]
+    #if st.button("Show Normalized Job Title"):
+    # Get foreign_key_id and source for the selected job posting
+    foreign_key_id = job_posting["foreign_key_id"].values[0]
+    source = job_posting["source"].values[0]
 
-        # Find normalized skills from skills_table
-        normalized_job_title = df3[
-            (df3["foreign_key_id"] == foreign_key_id) &
-            (df3["source"] == source)
-        ][["foreign_key_id", "source", "job_title", "occupation_title","isco_code","esco_code"]]
-        normalized_job_title["foreign_key_id"] = normalized_job_title["foreign_key_id"].astype(str)
-        st.subheader("Normalized Job Title (ESCO)")
-        st.dataframe(normalized_job_title)  # Display as a table
-
-        # Button to show normalized industry (ESCO skills)
-    if st.button("Show Normalized Industry Category"):
-        # Get foreign_key_id and source for the selected job posting
-        foreign_key_id = job_posting["foreign_key_id"].values[0]
-        source = job_posting["source"].values[0]
-
-        # Find normalized skills from skills_table
-        normalized_industry = df4[
-            (df4["foreign_key_id"] == foreign_key_id) &
-            (df4["source"] == source)
-        ][["foreign_key_id", "source", "industry_category", "industry_nace"]]
-        normalized_industry["foreign_key_id"] = normalized_industry["foreign_key_id"].astype(str)
-        st.subheader("Normalized Industry (NACE)")
-        st.dataframe(normalized_industry)  # Display as a table
+    # Find normalized skills from skills_table
+    normalized_job_title = df3[
+        (df3["foreign_key_id"] == foreign_key_id) &
+        (df3["source"] == source)
+    ][["foreign_key_id", "source", "job_title", "occupation_title","isco_code","esco_code"]]
+    normalized_job_title["foreign_key_id"] = normalized_job_title["foreign_key_id"].astype(str)
+    st.subheader("Normalized Job Title (ESCO)")
+    st.dataframe(normalized_job_title)  # Display as a table
 
         # Button to show normalized industry (ESCO skills)
-    if st.button("Show Normalized Qualification Level based on EQF"):
-        # Get foreign_key_id and source for the selected job posting
-        foreign_key_id = job_posting["foreign_key_id"].values[0]
-        source = job_posting["source"].values[0]
+    #if st.button("Show Normalized Industry Category"):
+    # Get foreign_key_id and source for the selected job posting
+    foreign_key_id = job_posting["foreign_key_id"].values[0]
+    source = job_posting["source"].values[0]
 
-        # Find normalized skills from skills_table
-        normalized_eqf = df5[
-            (df5["foreign_key_id"] == foreign_key_id) &
-            (df5["source"] == source)
-        ][["foreign_key_id", "source", "qualification", "eqf_level"]]
-        normalized_eqf["foreign_key_id"] = normalized_eqf["foreign_key_id"].astype(str)
-        st.subheader("Normalized Qualification (ESCO)")
-        st.dataframe(normalized_eqf)  # Display as a table
+    # Find normalized skills from skills_table
+    normalized_industry = df4[
+        (df4["foreign_key_id"] == foreign_key_id) &
+        (df4["source"] == source)
+    ][["foreign_key_id", "source", "industry_category", "industry_nace"]]
+    normalized_industry["foreign_key_id"] = normalized_industry["foreign_key_id"].astype(str)
+    st.subheader("Normalized Industry (NACE)")
+    st.dataframe(normalized_industry)  # Display as a table
 
         # Button to show normalized industry (ESCO skills)
-    if st.button("Show Normalized Education Level based on ISCED"):
-        # Get foreign_key_id and source for the selected job posting
-        foreign_key_id = job_posting["foreign_key_id"].values[0]
-        source = job_posting["source"].values[0]
+    #if st.button("Show Normalized Qualification Level based on EQF"):
+    # Get foreign_key_id and source for the selected job posting
+    foreign_key_id = job_posting["foreign_key_id"].values[0]
+    source = job_posting["source"].values[0]
 
-        # Find normalized skills from skills_table
-        normalized_education_level = df6[
-            (df6["foreign_key_id"] == foreign_key_id) &
-            (df6["source"] == source)
-        ][["foreign_key_id", "source", "required_education_level", "isced_level"]]
-        normalized_education_level["foreign_key_id"] = normalized_education_level["foreign_key_id"].astype(str)
-        st.subheader("Normalized Education Level (ISCED)")
-        st.dataframe(normalized_education_level)  # Display as a table
+    # Find normalized skills from skills_table
+    normalized_eqf = df5[
+        (df5["foreign_key_id"] == foreign_key_id) &
+        (df5["source"] == source)
+    ][["foreign_key_id", "source", "qualification", "eqf_level"]]
+    normalized_eqf["foreign_key_id"] = normalized_eqf["foreign_key_id"].astype(str)
+    st.subheader("Normalized Qualification (ESCO)")
+    st.dataframe(normalized_eqf)  # Display as a table
 
-        # New Feature: Search for required_skill by ESCO skill value
+        # Button to show normalized industry (ESCO skills)
+    #if st.button("Show Normalized Education Level based on ISCED"):
+    # Get foreign_key_id and source for the selected job posting
+    foreign_key_id = job_posting["foreign_key_id"].values[0]
+    source = job_posting["source"].values[0]
+
+    # Find normalized skills from skills_table
+    normalized_education_level = df6[
+        (df6["foreign_key_id"] == foreign_key_id) &
+        (df6["source"] == source)
+    ][["foreign_key_id", "source", "required_education_level", "isced_level"]]
+    normalized_education_level["foreign_key_id"] = normalized_education_level["foreign_key_id"].astype(str)
+    st.subheader("Normalized Education Level (ISCED)")
+    st.dataframe(normalized_education_level)  # Display as a table
+
+    # New Feature: Search for required_skill by ESCO skill value
     st.subheader("Search Required Skills by ESCO Skill")
     esco_skill_input = st.text_input("Enter an ESCO Skill Value (e.g., 'work in an organised manner')")
 
@@ -167,5 +167,28 @@ if not df1.empty:
             )
         else:
             st.warning("No matching required skills found for the given ESCO skill value.")
+
+    # New Feature: Search for required_skill by ESCO skill value
+    st.subheader("Search Industry Category by NACE industry")
+    industry_input = st.text_input("Enter a NACE Industry (e.g., 'Restaurant activities')")
+
+    if industry_input:
+        # Filter the skills table for the input ESCO skill value
+        filtered_industry = df4[df4["industry_nace"].str.contains(industry_input, case=False, na=False)]
+
+        if not filtered_industry.empty:
+            # Get distinct required_skill values
+            distinct_industry_categories = filtered_industry["industry_category"].unique()
+
+            # Display the distinct required_skill values
+            st.write("**Distinct Industry Categories:**")
+            st.text_area(
+                "Scrollable Industry Categories",
+                value="\n".join(distinct_industry_categories),
+                height=200,  # Set the height of the scrollable box
+                key="industry_cateogries_box"
+            )
+        else:
+            st.warning("No matching industry categories found for the given NACE industry value.")
 else:
     st.warning("No job posting found with the given ID.")
