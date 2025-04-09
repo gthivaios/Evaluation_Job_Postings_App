@@ -12,6 +12,9 @@ from typing import List
 import json
 import logging
 
+import sys
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Define the schema for the critique output
 class CritiqueOutput(BaseModel):
